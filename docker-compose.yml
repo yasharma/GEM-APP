@@ -1,0 +1,29 @@
+version: "3"
+services:
+  gemapp:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    environment:  
+      APP_PORT: 80
+      MONGO_DB_URL: mongodb://gemapp-mongodb:27017/gem-db
+    ports:
+      - 8099:80
+    volumes:
+      - gemapp-node-modules-volume:/app/node_modules
+      - ./src:/app/src
+    depends_on:
+      - gemapp-mongodb
+
+  gemapp-mongodb:
+    image: mongo:4.2
+    environment:
+      MONGO_DATA_DIR: /data/db
+      MONGO_LOG_DIR: /dev/null
+    volumes:
+      - gemapp-mongodb-volume:/data/db
+    ports:
+      - 26017:27017
+volumes:
+  gemapp-mongodb-volume:
+  gemapp-node-modules-volume:
