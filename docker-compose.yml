@@ -23,7 +23,7 @@ services:
     volumes:
       - gemapp-mongodb-volume:/data/db
     ports:
-      - 26017:27017
+      - 23017:27017
 volumes:
   gemapp-mongodb-volume:
   gemapp-node-modules-volume:
