@@ -1,5 +1,5 @@
 const { GraphQLSchema, GraphQLObjectType } = require('graphql');
-const { BooksQuery, BookByIdQuery } = require('./query/BooksQuery');
+const { BooksQuery, BookBySlugQuery } = require('./query/BooksQuery');
 const { NotesQuery } = require('./query/NotesQuery');
 const {
   CreatePostMutation,
@@ -16,7 +16,7 @@ const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
     books: BooksQuery,
-    book: BookByIdQuery,
+    book: BookBySlugQuery,
     notes: NotesQuery
   })
 });

@@ -1,4 +1,4 @@
-const MongoDbRepo = require('../repository/mongoDbRepository');
+const MongoDbRepo = require('../repository/BookRepository');
 
 class NoteService {
   constructor() {

@@ -1,4 +1,4 @@
-const MongoDbRepo = require('../repository/mongoDbRepository');
+const MongoDbRepo = require('../repository/BookRepository');
 
 class BookService {
   constructor() {
@@ -11,6 +11,10 @@ class BookService {
   
   getById(_id) {
     return this.BookRepository.getById(_id);
+  }
+
+  getBySlug(_id) {
+    return this.BookRepository.getBySlug(_id);
   }
 
   updatePost(_id, opt) {

@@ -1,14 +1,14 @@
 const { getDB } = require('../config/databaseConnection');
 const ObjectId = require('mongodb').ObjectId;
 
-class MongoDbRepo {
+class BookRepository {
   constructor(collectionName) {
     this.collection = getDB().collection(collectionName);
   }
 
   getAll() {
     return new Promise((resolve, reject) => {
-      this.collection.find({}).sort({publishedDate: -1}).toArray((err, data) => {
+      this.collection.find({ status: 'PUBLISH' }).sort({ publishedDate: -1 }).toArray((err, data) => {
         if (err) {
           reject(err);
         }
@@ -20,6 +20,17 @@ class MongoDbRepo {
   getById(_id) {
     return new Promise((resolve, reject) => {
       this.collection.findOne({ _id: ObjectId(_id) }, (err, data) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(data);
+      });
+    });
+  }
+
+  getBySlug(slug) {
+    return new Promise((resolve, reject) => {
+      this.collection.findOne({ slug }, (err, data) => {
         if (err) {
           reject(err);
         }
@@ -70,4 +81,4 @@ class MongoDbRepo {
   }
 }
 
-module.exports = MongoDbRepo;
+module.exports = BookRepository;

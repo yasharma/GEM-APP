@@ -8,10 +8,10 @@ const setupDB = callback => {
     { useNewUrlParser: true, useUnifiedTopology: true },
     (err, client) => {
       mongoDB = client.db('gem-db');
-
       if (err) {
         return callback(err);
       } else {
+        mongoDB.collection('Books').createIndex('slug')
         return callback('DB connection successful!');
       }
     }
