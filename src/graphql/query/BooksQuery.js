@@ -1,4 +1,4 @@
-const { bookType } = require('../nodeTypes');
+const { bookType, categoryType } = require('../nodeTypes');
 const { GraphQLList, GraphQLID, GraphQLString } = require('graphql');
 const BookService = require('../../services/BookService');
 

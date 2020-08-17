@@ -9,6 +9,14 @@ const noteType = new GraphQLObjectType({
   }
 });
 
+const categoryType = new GraphQLObjectType({
+  name: 'Category',
+  fields: {
+    _id: { type: GraphQLID },
+    name: { type: GraphQLString }
+  }
+});
+
 const bookType = new GraphQLObjectType({
   name: 'Book',
   fields: {
@@ -29,4 +37,4 @@ const bookType = new GraphQLObjectType({
   }
 });
 
-module.exports = { noteType, bookType };
+module.exports = { noteType, bookType, categoryType };
