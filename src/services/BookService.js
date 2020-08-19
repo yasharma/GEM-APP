@@ -6,7 +6,11 @@ class BookService {
   }
 
   getAllPosts() {
-    return this.BookRepository.getAll();
+    return this.BookRepository.getByQuery();
+  }
+  
+  getByQuery(query) {
+    return this.BookRepository.getByQuery(query);
   }
   
   getById(_id) {

@@ -1,13 +1,15 @@
-const { bookType, categoryType } = require('../nodeTypes');
+const { bookType } = require('../nodeTypes');
 const { GraphQLList, GraphQLID, GraphQLString } = require('graphql');
 const BookService = require('../../services/BookService');
 
 const BooksQuery = {
   type: GraphQLList(bookType),
-  args: {},
-  resolve: async () => {
+  args: {
+    category: { type: GraphQLString }
+  },
+  resolve: async (_, { category }) => {
     const bookService = new BookService();
-    const Books = await bookService.getAllPosts();
+    const Books = await bookService.getByQuery({ category });
 
     return Books;
   }

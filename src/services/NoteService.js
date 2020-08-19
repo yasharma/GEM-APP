@@ -6,7 +6,7 @@ class NoteService {
   }
 
   getAllNotes() {
-    return this.NoteRepository.getAll();
+    return this.NoteRepository.getByQuery();
   }
 
   updateNote(_id, opt) {
