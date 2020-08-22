@@ -8,11 +8,11 @@ class BookService {
   getAllPosts() {
     return this.BookRepository.getByQuery();
   }
-  
+
   getByQuery(query) {
-    return this.BookRepository.getByQuery(query);
+    return this.BookRepository.getByQuery(this.buildQuery(query));
   }
-  
+
   getById(_id) {
     return this.BookRepository.getById(_id);
   }
@@ -31,6 +31,17 @@ class BookService {
 
   createPost(opt) {
     return this.BookRepository.create(opt);
+  }
+
+  buildQuery(query) {
+    const queryMap = {
+      category: 'categories',
+      title: 'title'
+    }
+    return Object.keys(query).reduce((p, c) => {
+      if (query[c]) p[queryMap[c]] = { $in: [query[c]] }
+      return p;
+    }, {});
   }
 }
 

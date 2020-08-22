@@ -7,9 +7,8 @@ class BookRepository {
   }
 
   getByQuery(query = {}) {
-    console.log({ ...this.buildQuery(query), status: 'PUBLISH' });
     return new Promise((resolve, reject) => {
-      this.collection.find({ ...this.buildQuery(query), status: 'PUBLISH' }).sort({ publishedDate: -1 }).toArray((err, data) => {
+      this.collection.find({ ...query, status: 'PUBLISH' }).sort({ publishedDate: -1 }).toArray((err, data) => {
         if (err) {
           reject(err);
         }
@@ -79,16 +78,6 @@ class BookRepository {
       });
       1;
     });
-  }
-
-  buildQuery(query) {
-    const queryMap = {
-      category: 'categories'
-    }
-    return Object.keys(query).reduce((p, c) => {
-      if (query[c]) p[queryMap[c]] = { $in: [query[c]] }
-      return p;
-    }, {});
   }
 }
 

@@ -5,11 +5,25 @@ const BookService = require('../../services/BookService');
 const BooksQuery = {
   type: GraphQLList(bookType),
   args: {
-    category: { type: GraphQLString }
+    category: { type: GraphQLString },
   },
   resolve: async (_, { category }) => {
     const bookService = new BookService();
     const Books = await bookService.getByQuery({ category });
+
+    return Books;
+  }
+};
+
+const BooksListQuery = {
+  type: GraphQLList(bookType),
+  args: {
+    title: { type: GraphQLString },
+  },
+  resolve: async (_, { title }) => {
+    if(!title) return Promise.resolve([]);
+    const bookService = new BookService();
+    const Books = await bookService.getByQuery({ title: new RegExp(title, 'gi') });
 
     return Books;
   }
@@ -42,4 +56,4 @@ const BookBySlugQuery = {
   }
 };
 
-module.exports = { BooksQuery, BookByIdQuery, BookBySlugQuery };
+module.exports = { BooksQuery, BookByIdQuery, BookBySlugQuery, BooksListQuery };

@@ -1,5 +1,5 @@
 const { GraphQLSchema, GraphQLObjectType } = require('graphql');
-const { BooksQuery, BookBySlugQuery } = require('./query/BooksQuery');
+const { BooksQuery, BookBySlugQuery, BooksListQuery } = require('./query/BooksQuery');
 const { CategoriesQuery } = require('./query/CategoriesQuery');
 const { NotesQuery } = require('./query/NotesQuery');
 const {
@@ -17,6 +17,7 @@ const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
     books: BooksQuery,
+    bookListing: BooksListQuery,
     book: BookBySlugQuery,
     notes: NotesQuery,
     categories: CategoriesQuery
