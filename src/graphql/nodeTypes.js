@@ -37,4 +37,15 @@ const bookType = new GraphQLObjectType({
   }
 });
 
-module.exports = { noteType, bookType, categoryType };
+const searchType = new GraphQLObjectType({
+  name: 'Search',
+  fields: {
+    _id: { type: GraphQLID },
+    bookId: { type: GraphQLID },
+    slug: { type: GraphQLString },
+    title: { type: GraphQLString },
+    count: { type: GraphQLInt }
+  }
+});
+
+module.exports = { noteType, bookType, categoryType, searchType };

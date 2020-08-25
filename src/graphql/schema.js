@@ -1,13 +1,14 @@
 const { GraphQLSchema, GraphQLObjectType } = require('graphql');
 const { BooksQuery, BookBySlugQuery, BooksListQuery } = require('./query/BooksQuery');
 const { CategoriesQuery } = require('./query/CategoriesQuery');
+const { SearchQuery } = require('./query/SearchQuery');
 const { NotesQuery } = require('./query/NotesQuery');
 const {
   CreatePostMutation,
   UpdatePostMutation,
-  DeletePostMutation,
-  SaveSearchMutation
+  DeletePostMutation
 } = require('./mutation/BooksMutation');
+const { SaveSearchMutation } = require('./mutation/SearchMutation');
 const {
   CreateNoteMutation,
   UpdateNoteMutation,
@@ -21,7 +22,8 @@ const QueryType = new GraphQLObjectType({
     bookListing: BooksListQuery,
     book: BookBySlugQuery,
     notes: NotesQuery,
-    categories: CategoriesQuery
+    categories: CategoriesQuery,
+    searches: SearchQuery
   })
 });
 

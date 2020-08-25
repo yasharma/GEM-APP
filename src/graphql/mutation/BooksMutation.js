@@ -57,17 +57,4 @@ const UpdatePostMutation = {
   }
 };
 
-const SaveSearchMutation = {
-  type: bookType,
-  args: {
-    bookId: { type: GraphQLID },
-    title: { type: GraphQLString },
-    slug: { type: GraphQLString }
-  },
-  resolve: async (_, { bookId, title, slug }) => {
-    const searchService = new SearchService();
-    return searchService.save({ bookId, title, slug});
-  }
-};
-
-module.exports = { CreatePostMutation, UpdatePostMutation, DeletePostMutation, SaveSearchMutation };
+module.exports = { CreatePostMutation, UpdatePostMutation, DeletePostMutation };

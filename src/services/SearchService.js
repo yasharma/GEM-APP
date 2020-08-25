@@ -1,28 +1,37 @@
-const MongoDbRepo = require('../repository/BookRepository');
+const MongoDbRepo = require('../repository/SearchRepository');
 
 class SearchService {
   constructor() {
-    this.BookRepository = new MongoDbRepo('Searches');
+    this.searchRepository = new MongoDbRepo('Searches');
   }
 
   getByQuery(query) {
-    return this.BookRepository.getByQuery(this.buildQuery(query));
+    return this.searchRepository.getByQuery(this.buildQuery(query));
   }
 
   getById(_id) {
-    return this.BookRepository.getById(_id);
+    return this.searchRepository.getById(_id);
   }
 
   update(_id, opt) {
-    return this.BookRepository.updateOne(_id, opt);
+    return this.searchRepository.updateOne(_id, opt);
   }
 
   remove(_id) {
-    return this.BookRepository.deleteOne(_id);
+    return this.searchRepository.deleteOne(_id);
   }
 
   save(opt) {
-    return this.BookRepository.create(opt);
+    return this.searchRepository.create(opt);
+  }
+
+  async upsertWithCount(opt) {
+    const { value } = await this.searchRepository.upsertWithCount(opt, opt);
+    return value;
+  }
+
+  getByMostSearched() {
+    return this.searchRepository.findByMostSearched({})
   }
 
   buildQuery(query) {

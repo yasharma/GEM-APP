@@ -11,8 +11,10 @@ const setupDB = callback => {
       if (err) {
         return callback(err);
       } else {
-        mongoDB.collection('Books').createIndex('slug')
-        mongoDB.collection('Books').createIndex('title')
+        mongoDB.collection('Books').createIndex('slug');
+        mongoDB.collection('Books').createIndex('title');
+        mongoDB.collection('Searches').createIndex({ 'count': 1 });
+        mongoDB.collection('Searches').createIndex({ 'bookId': 1 });
         return callback('DB connection successful!');
       }
     }
