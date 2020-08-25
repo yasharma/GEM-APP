@@ -82,12 +82,16 @@ class BookRepository {
   async upsertWithCount(query, update, options = {}) {
     return this.collection.findOneAndUpdate(
       query,
-      { $set: { ...update }, $inc: { count: 1 } },
+      { 
+        $set: { ...update, updatedAt: new Date() }, 
+        $inc: { count: 1 }, 
+        $setOnInsert: { createdAt: new Date() } 
+      },
       { upsert: true, returnOriginal: false, ...options })
   }
 
   findByMostSearched(query = {}) {
-    return this.collection.find(query).sort({ count: -1 }).limit(10).toArray()
+    return this.collection.find(query).sort({ count: -1, createdAt: -1 }).limit(10).toArray()
   }
 }
 
