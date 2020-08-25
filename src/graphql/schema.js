@@ -5,7 +5,8 @@ const { NotesQuery } = require('./query/NotesQuery');
 const {
   CreatePostMutation,
   UpdatePostMutation,
-  DeletePostMutation
+  DeletePostMutation,
+  SaveSearchMutation
 } = require('./mutation/BooksMutation');
 const {
   CreateNoteMutation,
@@ -32,7 +33,8 @@ const MutationType = new GraphQLObjectType({
     updatePost: UpdatePostMutation,
     createNote: CreateNoteMutation,
     deleteNote: DeleteNoteMutation,
-    updateNote: UpdateNoteMutation
+    updateNote: UpdateNoteMutation,
+    saveSearch: SaveSearchMutation
   })
 });
 

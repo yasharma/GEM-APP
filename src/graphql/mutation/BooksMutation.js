@@ -4,7 +4,7 @@ const {
   GraphQLString,
   GraphQLID
 } = require('graphql');
-const Bookservice = require('../../services/Bookservice');
+const BookService = require('../../services/BookService');
 
 const CreatePostMutation = {
   type: bookType,
@@ -13,8 +13,8 @@ const CreatePostMutation = {
     description: { type: GraphQLString }
   },
   resolve: async (_, { title, description }) => {
-    const Bookservice = new Bookservice();
-    const newPost = await Bookservice.createPost({ 
+    const bookService = new BookService();
+    const newPost = await bookService.save({ 
       title, 
       description 
     });
@@ -29,8 +29,8 @@ const DeletePostMutation = {
     _id: { type: GraphQLID }
   },
   resolve: async (_, { _id }) => {
-    const Bookservice = new Bookservice();
-    const res = await Bookservice.deletePost(_id);
+    const Bookservice = new BookService();
+    const res = await Bookservice.remove(_id);
 
     if (res.ok) {
       return _id;
@@ -46,8 +46,8 @@ const UpdatePostMutation = {
     description: { type: GraphQLString }
   },
   resolve: async (_, { _id, title, description  }) => {
-    const Bookservice = new Bookservice();
-    const updatedBlog = await Bookservice.updatePost(_id, { 
+    const Bookservice = new BookService();
+    const updatedBlog = await Bookservice.update(_id, { 
       title, 
       description
     });
@@ -56,4 +56,18 @@ const UpdatePostMutation = {
   }
 };
 
-module.exports = { CreatePostMutation, UpdatePostMutation, DeletePostMutation };
+const SaveSearchMutation = {
+  type: bookType,
+  args: {
+    bookId: { type: GraphQLID },
+    title: { type: GraphQLString },
+    slug: { type: GraphQLString }
+  },
+  resolve: async (_, { bookId, title, slug }) => {
+    const bookService = new BookService();
+    const newPost = await bookService.save({ bookId, title, slug});
+    return newPost;
+  }
+};
+
+module.exports = { CreatePostMutation, UpdatePostMutation, DeletePostMutation, SaveSearchMutation };

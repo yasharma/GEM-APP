@@ -21,15 +21,15 @@ class BookService {
     return this.BookRepository.getBySlug(_id);
   }
 
-  updatePost(_id, opt) {
+  update(_id, opt) {
     return this.BookRepository.updateOne(_id, opt);
   }
 
-  deletePost(_id) {
+  remove(_id) {
     return this.BookRepository.deleteOne(_id);
   }
 
-  createPost(opt) {
+  save(opt) {
     return this.BookRepository.create(opt);
   }
 
