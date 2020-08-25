@@ -5,6 +5,7 @@ const {
   GraphQLID
 } = require('graphql');
 const BookService = require('../../services/BookService');
+const SearchService = require('../../services/SearchService');
 
 const CreatePostMutation = {
   type: bookType,
@@ -64,9 +65,8 @@ const SaveSearchMutation = {
     slug: { type: GraphQLString }
   },
   resolve: async (_, { bookId, title, slug }) => {
-    const bookService = new BookService();
-    const newPost = await bookService.save({ bookId, title, slug});
-    return newPost;
+    const searchService = new SearchService();
+    return searchService.save({ bookId, title, slug});
   }
 };
 
