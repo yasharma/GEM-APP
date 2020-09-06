@@ -17,6 +17,21 @@ class BookRepository {
     });
   }
 
+  getByPagination(query = {}, first = 10) {
+    return new Promise((resolve, reject) => {
+      this.collection
+        .find({ ...query, status: 'PUBLISH' })
+        .sort({ publishedDate: -1,  _id: -1 })
+        .limit(first + 1)
+        .toArray((err, data) => {
+          if (err) {
+            reject(err);
+          }
+          resolve(data);
+        });
+    });
+  }
+
   getById(_id) {
     return new Promise((resolve, reject) => {
       this.collection.findOne({ _id: ObjectId(_id) }, (err, data) => {
