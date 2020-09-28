@@ -2,13 +2,14 @@ const { bookType, BookConnection } = require('../nodeTypes');
 const { GraphQLList, GraphQLID, GraphQLString } = require('graphql');
 const BookService = require('../../services/BookService');
 const { GraphQLInt } = require('graphql');
+const { GraphQLDateTime } = require('graphql-iso-date');
 
 const BooksQuery = {
   type: BookConnection,
   args: {
     category: { type: GraphQLString },
     first: { type: GraphQLInt },
-    after: { type: GraphQLID },
+    after: { type: GraphQLDateTime },
   },
   resolve: async (_, { category, first, after }) => {
     const bookService = new BookService();

@@ -21,7 +21,7 @@ class BookRepository {
     return new Promise((resolve, reject) => {
       this.collection
         .find({ ...query, status: 'PUBLISH' })
-        .sort({ publishedDate: -1,  _id: -1 })
+        .sort({ publishedDate: -1 })
         .limit(first + 1)
         .toArray((err, data) => {
           if (err) {

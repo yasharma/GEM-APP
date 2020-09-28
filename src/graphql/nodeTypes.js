@@ -55,7 +55,10 @@ const PageInfo = new GraphQLObjectType({
   fields: {
     hasNextPage: {
       type: new GraphQLNonNull(GraphQLBoolean),
-    }
+    },
+    endCursor: {
+      type: GraphQLDateTime,
+    },
   },
 });
 

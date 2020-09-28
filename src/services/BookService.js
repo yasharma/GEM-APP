@@ -1,5 +1,4 @@
 const MongoDbRepo = require('../repository/BookRepository');
-const { ObjectID } = require('mongodb');
 
 class BookService {
   constructor() {
@@ -15,7 +14,7 @@ class BookService {
   }
 
   async getByPagination(query, first, after) {
-    const criteria = after ? { _id: { $lt: ObjectID(after) } } : {};
+    const criteria = after ? { publishedDate: { $lt: new Date(after) } } : {};
     let _books = await this.BookRepository.getByPagination({ ...this.buildQuery(query), ...criteria }, first);
     const hasNextPage = _books.length > first - 1;
     //remove extra
@@ -23,11 +22,13 @@ class BookService {
       _books = _books.slice(0, _books.length - 1);
     }
     const edges = _books.map(r => ({
-      cursor: r._id.toString(),
       node: r,
     }));
     return {
-      pageInfo: { hasNextPage, },
+      pageInfo: { 
+        hasNextPage,
+        endCursor: _books.length > 0 ? new Date(_books[_books.length - 1].publishedDate) : null,
+      },
       edges,
     };
   }
